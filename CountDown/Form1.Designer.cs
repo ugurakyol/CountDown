@@ -41,7 +41,7 @@ namespace CountDown
             this.labelHour = new System.Windows.Forms.Label();
             this.btnAddTime = new System.Windows.Forms.Button();
             this.btnSetDuration = new System.Windows.Forms.Button();
-            this.textBoxSure = new System.Windows.Forms.TextBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // btnStart
@@ -53,7 +53,7 @@ namespace CountDown
             this.btnStart.TabIndex = 1;
             this.btnStart.Text = "Başlat";
             this.btnStart.UseVisualStyleBackColor = true;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.btnStart.Click += new System.EventHandler(this.BtnStart_Click);
             // 
             // btnStop
             // 
@@ -64,7 +64,7 @@ namespace CountDown
             this.btnStop.TabIndex = 2;
             this.btnStop.Text = "Durdur";
             this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.btnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
             // btnReset
             // 
@@ -75,7 +75,7 @@ namespace CountDown
             this.btnReset.TabIndex = 3;
             this.btnReset.Text = "Sıfırla";
             this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            this.btnReset.Click += new System.EventHandler(this.BtnReset_Click);
             // 
             // labelDate
             // 
@@ -94,7 +94,7 @@ namespace CountDown
             // 
             // timer1
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // labeltimepassed
             // 
@@ -143,30 +143,32 @@ namespace CountDown
             this.btnAddTime.TabIndex = 8;
             this.btnAddTime.Text = "Ek Süre";
             this.btnAddTime.UseVisualStyleBackColor = true;
-            this.btnAddTime.Click += new System.EventHandler(this.btnAddTime_Click);
+            this.btnAddTime.Click += new System.EventHandler(this.BtnAddTime_Click);
             // 
             // btnSetDuration
             // 
             this.btnSetDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnSetDuration.Location = new System.Drawing.Point(801, 404);
+            this.btnSetDuration.Location = new System.Drawing.Point(802, 404);
             this.btnSetDuration.Name = "btnSetDuration";
             this.btnSetDuration.Size = new System.Drawing.Size(100, 39);
             this.btnSetDuration.TabIndex = 9;
             this.btnSetDuration.Text = "Süre Ayarı";
             this.btnSetDuration.UseVisualStyleBackColor = true;
             this.btnSetDuration.Visible = false;
-            this.btnSetDuration.Click += new System.EventHandler(this.btnSetDuration_Click);
+            this.btnSetDuration.Click += new System.EventHandler(this.BtnSetDuration_Click);
             // 
-            // textBoxSure
+            // dateTimePicker1
             // 
-            this.textBoxSure.Font = new System.Drawing.Font("Digital-7", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSure.Location = new System.Drawing.Point(695, 404);
-            this.textBoxSure.Name = "textBoxSure";
-            this.textBoxSure.Size = new System.Drawing.Size(100, 39);
-            this.textBoxSure.TabIndex = 10;
-            this.textBoxSure.Text = "00:00";
-            this.textBoxSure.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBoxSure.Visible = false;
+            this.dateTimePicker1.CalendarFont = new System.Drawing.Font("Dubai", 24F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Font = new System.Drawing.Font("Digital-7", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker1.Location = new System.Drawing.Point(696, 404);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.ShowUpDown = true;
+            this.dateTimePicker1.Size = new System.Drawing.Size(100, 39);
+            this.dateTimePicker1.TabIndex = 12;
+            this.dateTimePicker1.Value = new System.DateTime(2021, 2, 1, 0, 0, 0, 0);
+            this.dateTimePicker1.Visible = false;
             // 
             // Form1
             // 
@@ -174,7 +176,7 @@ namespace CountDown
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1072, 486);
-            this.Controls.Add(this.textBoxSure);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.btnSetDuration);
             this.Controls.Add(this.labelduration);
             this.Controls.Add(this.labeltimepassed);
@@ -207,7 +209,7 @@ namespace CountDown
         private System.Windows.Forms.Label labelHour;
         private System.Windows.Forms.Button btnAddTime;
         private System.Windows.Forms.Button btnSetDuration;
-        private System.Windows.Forms.TextBox textBoxSure;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }
 
