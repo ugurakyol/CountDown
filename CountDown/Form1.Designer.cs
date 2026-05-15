@@ -186,7 +186,7 @@ namespace CountDown
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.labelHour);
             this.Controls.Add(this.labelDate);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

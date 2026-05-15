@@ -17,6 +17,10 @@ namespace CountDown
         DateTime durationtime = DateTime.Parse("00:02:00");
         Boolean isrunning = false;
         int saniye=1;
+        private readonly Dictionary<Control, Rectangle> originalControlBounds = new Dictionary<Control, Rectangle>();
+        private readonly Dictionary<Control, float> originalFontSizes = new Dictionary<Control, float>();
+        private Size originalClientSize;
+
         public Form1()
         {
             InitializeComponent();
@@ -38,8 +42,81 @@ namespace CountDown
             };
             timer1.Tick += new EventHandler(Timer1_Tick);
             timer1.Enabled = true;
+            BackgroundImageLayout = ImageLayout.Stretch;
+
+            InitializeResponsiveLayout();
 
 
+        }
+
+        private void InitializeResponsiveLayout()
+        {
+            originalClientSize = ClientSize;
+            StoreOriginalLayout(this);
+            Resize += Form1_Resize;
+        }
+
+        private void StoreOriginalLayout(Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                originalControlBounds[control] = control.Bounds;
+                originalFontSizes[control] = control.Font.Size;
+
+                if (control.HasChildren)
+                {
+                    StoreOriginalLayout(control);
+                }
+            }
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (originalClientSize.Width == 0 || originalClientSize.Height == 0)
+            {
+                return;
+            }
+
+            float scaleX = (float)ClientSize.Width / originalClientSize.Width;
+            float scaleY = (float)ClientSize.Height / originalClientSize.Height;
+            float scale = Math.Min(scaleX, scaleY);
+            int offsetX = (int)Math.Round((ClientSize.Width - (originalClientSize.Width * scale)) / 2f);
+            int offsetY = (int)Math.Round((ClientSize.Height - (originalClientSize.Height * scale)) / 2f);
+
+            SuspendLayout();
+            ResizeControls(this, scale, offsetX, offsetY);
+            ResumeLayout();
+        }
+
+        private void ResizeControls(Control parent, float scale, int offsetX, int offsetY)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                Rectangle originalBounds = originalControlBounds[control];
+                float originalFontSize = originalFontSizes[control];
+
+                control.Location = new Point(
+                    offsetX + (int)Math.Round(originalBounds.X * scale),
+                    offsetY + (int)Math.Round(originalBounds.Y * scale));
+
+                if (!control.AutoSize)
+                {
+                    control.Size = new Size(
+                        Math.Max(1, (int)Math.Round(originalBounds.Width * scale)),
+                        Math.Max(1, (int)Math.Round(originalBounds.Height * scale)));
+                }
+
+                float newFontSize = Math.Max(6f, originalFontSize * scale);
+                if (Math.Abs(control.Font.Size - newFontSize) > 0.1f)
+                {
+                    control.Font = new Font(control.Font.FontFamily, newFontSize, control.Font.Style);
+                }
+
+                if (control.HasChildren)
+                {
+                    ResizeControls(control, scale, offsetX, offsetY);
+                }
+            }
         }
 
 
